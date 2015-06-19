@@ -1,5 +1,5 @@
 /*!
- * Revealer 0.1.1
+ * Revealer 1.0.0
  *
  * Copyright 2015, Pixel Union - http://pixelunion.net
  * Released under the MIT license
@@ -84,7 +84,6 @@
 
   // jQuery plugin
   $.fn.revealer = function(method) {
-
     // Get action
     var action = methods[method || "toggle"];
     if (!action) return this;
