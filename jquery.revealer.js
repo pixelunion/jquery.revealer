@@ -1,7 +1,7 @@
 /*!
- * Revealer 0.1.0
+ * Revealer 0.1.1
  *
- * Copyright 2014, Pixel Union - http://pixelunion.net
+ * Copyright 2015, Pixel Union - http://pixelunion.net
  * Released under the MIT license
  */
 (function($){
@@ -10,6 +10,7 @@
     window.mozRequestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     function(fn) { window.setTimeout(fn, 1000/60); }
+
 
   // Public API
   var methods = {
@@ -20,8 +21,8 @@
     show: function(el) {
       // Check state
       if (methods.isOpen(el)) {
-        el.removeClass("revealer-prep-in revealer-animating revealer-animating-in");
-        el.off("revealer-prep-in revealer-animating revealer-show");
+        el.removeClass("revealer-animating revealer-animating-in");
+        el.off("revealer-animating revealer-show");
         return;
       }
 
@@ -29,17 +30,13 @@
       el.data("revealer-open", true);
       el.off("trend");
 
-      // Start animation state transition
-      el.addClass("revealer-prep-in");
-      el.trigger("revealer-prep-in");
-
       raf(function(){
+        // Start animation state transition
         el.addClass("revealer-animating revealer-animating-in");
         el.trigger("revealer-animating");
 
         raf(function(){
           el.addClass("revealer-visible");
-          el.removeClass("revealer-prep-in");
 
           el.one("trend", function(){
             el.removeClass("revealer-animating revealer-animating-in");
@@ -52,8 +49,8 @@
     hide: function(el) {
       // Check state
       if (!methods.isOpen(el)) {
-        el.removeClass("revealer-prep-out revealer-animating revealer-animating-out revealer-visible");
-        el.off("revealer-prep-out revealer-animating revealer-hide");
+        el.removeClass("revealer-animating revealer-animating-out revealer-visible");
+        el.off("revealer-animating revealer-hide");
         return;
       }
 
@@ -61,16 +58,12 @@
       el.data("revealer-open", false);
       el.off("trend");
 
-      // Start animation state transition
-      el.addClass("revealer-prep-out");
-      el.trigger("revealer-prep-out");
-
       raf(function(){
         el.addClass("revealer-animating revealer-animating-out");
+        el.trigger("revealer-animating");
 
         raf(function(){
-          el.trigger("revealer-animating");
-          el.removeClass("revealer-visible revealer-prep-out");
+          el.removeClass("revealer-visible");
 
           el.one("trend", function(){
             el.removeClass("revealer-animating revealer-animating-in revealer-animating-out");
@@ -91,6 +84,7 @@
 
   // jQuery plugin
   $.fn.revealer = function(method) {
+
     // Get action
     var action = methods[method || "toggle"];
     if (!action) return this;
