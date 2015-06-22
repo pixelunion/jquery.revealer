@@ -5,6 +5,11 @@
  * Released under the MIT license
  */
 (function($){
+  // check for trend event (make sure jquery.trend is included)
+  if (typeof $.event.special.trend !== "object") {
+    console.warn("Please make sure jquery.trend is included! Otherwise revealer won't work.");
+  }
+
   // Simple requestAnimationFrame polyfill
   var raf = window.requestAnimationFrame ||
     window.mozRequestAnimationFrame ||
