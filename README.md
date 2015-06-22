@@ -36,6 +36,13 @@ We assume an inital default state of `display: none`. Therefore the above classe
 ### Different transitions on in and out
 To apply different transitions for enter and leave, use `.revealer-animating-in` and `.revealer-animating-out` to declare different initial transition states. `.revealer-visible` will then include the final state for both in and out.
 
+### Setting a state without a transition
+To skip the transitioning and force a specific display state, you may use a `force` method:
+
+```
+$('.el').revealer('force', 'show|hide|toggle');
+```
+
 ## Example
 
 ```

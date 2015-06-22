@@ -1,5 +1,5 @@
 /*!
- * Revealer 1.0.0
+ * Revealer 1.1.0
  *
  * Copyright 2015, Pixel Union - http://pixelunion.net
  * Released under the MIT license
@@ -79,11 +79,35 @@
       } else {
         methods.show(el);
       }
+    },
+
+    // set element state without running any animations
+    force: function(el, forceMethod) {
+      if (forceMethod === "show") {
+        el.data("revealer-open", true);
+        el.addClass("revealer-visible");
+        el.trigger("revealer-show");
+      } else if (forceMethod === "hide") {
+        el.data("revealer-open", false);
+        el.removeClass("revealer-visible");
+        el.trigger("revealer-hide");
+      } else if (forceMethod === "toggle") {
+        el.data("revealer-open", !el.data("revealer-open"));
+        el.toggleClass("revealer-visible");
+        if (methods.isOpen(el)) {
+          el.trigger("revealer-hide");
+        } else {
+          el.trigger("revealer-show");
+        }
+      } else {
+        throw new Error("invalid force method.");
+      }
     }
   };
 
   // jQuery plugin
-  $.fn.revealer = function(method) {
+  $.fn.revealer = function(method, forceMethod) {
+
     // Get action
     var action = methods[method || "toggle"];
     if (!action) return this;
@@ -91,6 +115,16 @@
     // Run action
     if (method === "isOpen") {
       return action(this);
+    }
+
+    if (method === "force") {
+      if (!forceMethod) {
+        throw new Error("You must declare a method when using force.");
+        return;
+      }
+      return this.each(function(){
+        action($(this), forceMethod);
+      });
     }
 
     return this.each(function(){
