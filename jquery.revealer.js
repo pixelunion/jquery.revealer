@@ -19,20 +19,20 @@
 
   // Public API
   var methods = {
-    isOpen: function(el) {
-      return !!el.data("revealer-open");
+    isVisible: function(el) {
+      return !!el.data("revealer-visible");
     },
 
     show: function(el) {
       // Check state
-      if (methods.isOpen(el)) {
+      if (methods.isVisible(el)) {
         el.removeClass("revealer-animating revealer-animating-in");
         el.off("revealer-animating revealer-show");
         return;
       }
 
       // Remove previous event listeners
-      el.data("revealer-open", true);
+      el.data("revealer-visible", true);
       el.off("trend");
 
       raf(function(){
@@ -53,14 +53,14 @@
 
     hide: function(el) {
       // Check state
-      if (!methods.isOpen(el)) {
+      if (!methods.isVisible(el)) {
         el.removeClass("revealer-animating revealer-animating-out revealer-visible");
         el.off("revealer-animating revealer-hide");
         return;
       }
 
       // Remove previous event listeners
-      el.data("revealer-open", false);
+      el.data("revealer-visible", false);
       el.off("trend");
 
       raf(function(){
@@ -79,7 +79,7 @@
     },
 
     toggle: function(el) {
-      if (methods.isOpen(el)) {
+      if (methods.isVisible(el)) {
         methods.hide(el)
       } else {
         methods.show(el);
@@ -89,17 +89,17 @@
     // set element state without running any animations
     force: function(el, forceMethod) {
       if (forceMethod === "show") {
-        el.data("revealer-open", true);
+        el.data("revealer-visible", true);
         el.addClass("revealer-visible");
         el.trigger("revealer-show");
       } else if (forceMethod === "hide") {
-        el.data("revealer-open", false);
+        el.data("revealer-visible", false);
         el.removeClass("revealer-visible");
         el.trigger("revealer-hide");
       } else if (forceMethod === "toggle") {
-        el.data("revealer-open", !el.data("revealer-open"));
+        el.data("revealer-visible", !el.data("revealer-visible"));
         el.toggleClass("revealer-visible");
-        if (methods.isOpen(el)) {
+        if (methods.isVisible(el)) {
           el.trigger("revealer-hide");
         } else {
           el.trigger("revealer-show");
@@ -112,13 +112,12 @@
 
   // jQuery plugin
   $.fn.revealer = function(method, forceMethod) {
-
     // Get action
     var action = methods[method || "toggle"];
     if (!action) return this;
 
     // Run action
-    if (method === "isOpen") {
+    if (method === "isVisible") {
       return action(this);
     }
 
