@@ -1,5 +1,5 @@
 /*!
- * Revealer 1.1.0
+ * Revealer 2.0.0
  *
  * Copyright 2015, Pixel Union - http://pixelunion.net
  * Released under the MIT license

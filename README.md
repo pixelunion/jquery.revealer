@@ -81,6 +81,6 @@ var visible = $('.el').revealer('isVisible');
 }
 ```
 
-###Or some working code (_out of date!_):
+### Or some working code:
 
-http://codepen.io/anon/pen/XJXKey
+http://codepen.io/jnorth/pen/pJpGjj
