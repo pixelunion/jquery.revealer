@@ -37,10 +37,17 @@ We assume an inital default state of `display: none`. Therefore the above classe
 To apply different transitions for enter and leave, use `.animating-in` and `.animating-out` to declare different initial transition states. `.visible` will then include the final state for both in and out.
 
 ### Setting a state without a transition
-To skip the transitioning and force a specific display state, you may use a `force` method:
+To skip the transitioning and force a specific display state, you may pass `true` as the second parameter to `show`, `hide`, or `toggle`:
 
 ```
-$('.el').revealer('force', 'show|hide|toggle');
+$('.el').revealer('show', true);
+```
+
+### Get the current state
+To check if an element is currently visible, use the `isVisible` function:
+
+```
+var visible = $('.el').revealer('isVisible');
 ```
 
 ## Example

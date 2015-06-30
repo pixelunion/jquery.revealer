@@ -23,7 +23,7 @@
       return !!el.data("revealer-visible");
     },
 
-    show: function(el) {
+    show: function(el, force) {
       // Check state
       if (methods.isVisible(el)) {
         el.removeClass("animating animating-in");
@@ -34,6 +34,12 @@
       // Remove previous event listeners
       el.data("revealer-visible", true);
       el.off("trend");
+
+      if (force) {
+        el.addClass("visible");
+        el.trigger("revealer-show");
+        return;
+      }
 
       raf(function(){
         // Start animation state transition
@@ -51,7 +57,7 @@
       });
     },
 
-    hide: function(el) {
+    hide: function(el, force) {
       // Check state
       if (!methods.isVisible(el)) {
         el.removeClass("animating animating-out visible");
@@ -62,6 +68,12 @@
       // Remove previous event listeners
       el.data("revealer-visible", false);
       el.off("trend");
+
+      if (force) {
+        el.removeClass("visible");
+        el.trigger("revealer-hide");
+        return;
+      }
 
       raf(function(){
         el.addClass("animating animating-out");
@@ -78,40 +90,17 @@
       });
     },
 
-    toggle: function(el) {
+    toggle: function(el, force) {
       if (methods.isVisible(el)) {
-        methods.hide(el)
+        methods.hide(el, force);
       } else {
-        methods.show(el);
-      }
-    },
-
-    // set element state without running any animations
-    force: function(el, forceMethod) {
-      if (forceMethod === "show") {
-        el.data("revealer-visible", true);
-        el.addClass("visible");
-        el.trigger("revealer-show");
-      } else if (forceMethod === "hide") {
-        el.data("revealer-visible", false);
-        el.removeClass("visible");
-        el.trigger("revealer-hide");
-      } else if (forceMethod === "toggle") {
-        el.data("revealer-visible", !el.data("revealer-visible"));
-        el.toggleClass("visible");
-        if (methods.isVisible(el)) {
-          el.trigger("revealer-hide");
-        } else {
-          el.trigger("revealer-show");
-        }
-      } else {
-        throw new Error("invalid force method.");
+        methods.show(el, force);
       }
     }
   };
 
   // jQuery plugin
-  $.fn.revealer = function(method, forceMethod) {
+  $.fn.revealer = function(method, force) {
     // Get action
     var action = methods[method || "toggle"];
     if (!action) return this;
@@ -121,18 +110,8 @@
       return action(this);
     }
 
-    if (method === "force") {
-      if (!forceMethod) {
-        throw new Error("You must declare a method when using force.");
-        return;
-      }
-      return this.each(function(){
-        action($(this), forceMethod);
-      });
-    }
-
     return this.each(function(){
-      action($(this));
+      action($(this), force);
     });
   };
 })(jQuery);
