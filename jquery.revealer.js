@@ -26,7 +26,7 @@
     show: function(el) {
       // Check state
       if (methods.isVisible(el)) {
-        el.removeClass("revealer-animating revealer-animating-in");
+        el.removeClass("animating animating-in");
         el.off("revealer-animating revealer-show");
         return;
       }
@@ -37,14 +37,14 @@
 
       raf(function(){
         // Start animation state transition
-        el.addClass("revealer-animating revealer-animating-in");
+        el.addClass("animating animating-in");
         el.trigger("revealer-animating");
 
         raf(function(){
-          el.addClass("revealer-visible");
+          el.addClass("visible");
 
           el.one("trend", function(){
-            el.removeClass("revealer-animating revealer-animating-in");
+            el.removeClass("animating animating-in");
             el.trigger("revealer-show");
           });
         });
@@ -54,7 +54,7 @@
     hide: function(el) {
       // Check state
       if (!methods.isVisible(el)) {
-        el.removeClass("revealer-animating revealer-animating-out revealer-visible");
+        el.removeClass("animating animating-out visible");
         el.off("revealer-animating revealer-hide");
         return;
       }
@@ -64,14 +64,14 @@
       el.off("trend");
 
       raf(function(){
-        el.addClass("revealer-animating revealer-animating-out");
+        el.addClass("animating animating-out");
         el.trigger("revealer-animating");
 
         raf(function(){
-          el.removeClass("revealer-visible");
+          el.removeClass("visible");
 
           el.one("trend", function(){
-            el.removeClass("revealer-animating revealer-animating-in revealer-animating-out");
+            el.removeClass("animating animating-in animating-out");
             el.trigger("revealer-hide");
           });
         });
@@ -90,15 +90,15 @@
     force: function(el, forceMethod) {
       if (forceMethod === "show") {
         el.data("revealer-visible", true);
-        el.addClass("revealer-visible");
+        el.addClass("visible");
         el.trigger("revealer-show");
       } else if (forceMethod === "hide") {
         el.data("revealer-visible", false);
-        el.removeClass("revealer-visible");
+        el.removeClass("visible");
         el.trigger("revealer-hide");
       } else if (forceMethod === "toggle") {
         el.data("revealer-visible", !el.data("revealer-visible"));
-        el.toggleClass("revealer-visible");
+        el.toggleClass("visible");
         if (methods.isVisible(el)) {
           el.trigger("revealer-hide");
         } else {

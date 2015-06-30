@@ -24,17 +24,17 @@ $('button.toggle').on('click', function() {
 
 Revealer doesn't actually change your element's styles--instead it adds classes in an order that allows you to transition smoothly.
 
-####`.revealer-animating` 
+####`.animating`
 Apply your initial transition state (e.g. `opacity: 0;`) as well as your `transition:` property with this class.
 
-####`.revealer-visible` 
+####`.visible`
 Apply your final transition state (e.g. `opacity: 1`) to this state.
 
 ### caveat
 We assume an inital default state of `display: none`. Therefore the above classes should also include a `display: block;` property.
 
 ### Different transitions on in and out
-To apply different transitions for enter and leave, use `.revealer-animating-in` and `.revealer-animating-out` to declare different initial transition states. `.revealer-visible` will then include the final state for both in and out.
+To apply different transitions for enter and leave, use `.animating-in` and `.animating-out` to declare different initial transition states. `.visible` will then include the final state for both in and out.
 
 ### Setting a state without a transition
 To skip the transitioning and force a specific display state, you may use a `force` method:
@@ -48,26 +48,26 @@ $('.el').revealer('force', 'show|hide|toggle');
 ```
 .element-to-reveal {
   display: none;
-  
-  &.revealer-animating,
-  &.revealer-visible {
+
+  &.animating,
+  &.visible {
     display: block;
   }
 
   // initial state for enter transition
-  &.revealer-animating-in {
+  &.animating-in {
     transform: translateX(-100%);
     transition: transform 0.3s ease;
   }
 
   // initial state for leave transition
-  &.revealer-animating-out {
+  &.animating-out {
     opacity: 0;
     transition: opacity 0.2s ease;
   }
 
   // final states for both in and out
-  &.revealer-visible {
+  &.visible {
     transform: translateX(0);
     opacity: 1;
   }
