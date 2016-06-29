@@ -1,0 +1,31 @@
+{
+  "name": "jquery-revealer",
+  "title": "jQuery Revealer",
+  "description": "Animate elements to and from display: none!",
+  "version": "2.0.0",
+  "main": "jquery.revealer.js",
+  "homepage": "http://pixelunion.net",
+  "author": {
+    "name": "Pixel Union",
+    "url": "https://www.pixelunion.net/about"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pixelunion/jquery.revealer.git"
+  },
+  "keywords": [
+    "jquery",
+    "plugin",
+    "transition",
+    "display",
+    "none",
+    "animating"
+  ],
+  "bugs": {
+    "url": "https://github.com/pixelunion/jquery.revealer/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "jquery-trend": "^0.1.0"
+  }
+}
