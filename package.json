@@ -2,7 +2,7 @@
   "name": "jquery-revealer",
   "title": "jQuery Revealer",
   "description": "Animate elements to and from display: none!",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "jquery.revealer.js",
   "homepage": "http://pixelunion.net",
   "author": {
