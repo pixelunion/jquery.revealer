@@ -1,5 +1,5 @@
 /*!
- * Revealer 2.0.0
+ * Revealer 2.0.1
  *
  * Copyright 2015, Pixel Union - http://pixelunion.net
  * Released under the MIT license
@@ -37,7 +37,10 @@
 
       if (force) {
         el.addClass("visible");
-        el.trigger("revealer-show");
+        raf(function(){
+          el.trigger("revealer-animating");
+          el.trigger("revealer-show");
+        });
         return;
       }
 
@@ -71,7 +74,10 @@
 
       if (force) {
         el.removeClass("visible");
-        el.trigger("revealer-hide");
+        raf(function(){
+          el.trigger("revealer-animating");
+          el.trigger("revealer-hide");
+        });
         return;
       }
 
