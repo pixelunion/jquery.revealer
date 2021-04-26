@@ -26,6 +26,6 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@pixelunion/jquery-trend": "1.0.0"
+    "jquery-trend": "*"
   }
 }
